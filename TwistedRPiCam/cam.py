@@ -1,6 +1,5 @@
 # vim: set fileencoding=utf-8 ts=2 sw=2 et st=2 :
 import time
-import picamera
 import io
 import traceback
 from twisted.internet.threads import deferToThread
@@ -29,6 +28,7 @@ class Cam(object):
   def runt(self):
     try:
       print "CAM: initializing..."
+      import picamera
       self.camera = camera = picamera.PiCamera()
       #camera.resolution = (2592, 1944)
       #camera.resolution = (1920, 1080)
