@@ -24,20 +24,29 @@ class Cam(object):
   @defer.inlineCallbacks
   def run(self):
     reactor.addSystemEventTrigger("before", "shutdown", self.close)
+    yield deferToThread(self.runt)
+
+  def runt(self):
     try:
       print "CAM: initializing..."
-      self.camera = camera = yield deferToThread(picamera.PiCamera)
+      self.camera = camera = picamera.PiCamera()
       #camera.resolution = (2592, 1944)
-      camera.resolution = (1920, 1080)
+      #camera.resolution = (1920, 1080)
+      #camera.resolution = (1600, 1200)
+      camera.resolution = (800, 600)
       #camera.resolution = (640, 480)
       print "CAM: capturing..."
-      while not self.end:
-        stream = io.BytesIO()
-        #yield deferToThread(camera.capture, stream, "jpeg", resize=(640,480))
-        yield deferToThread(camera.capture, stream, "jpeg")
+      camera.start_preview()
+      stream = io.BytesIO()
+      for img in camera.capture_continuous(stream, 'jpeg', use_video_port=True):
         self.photo = stream.getvalue()
-        stream.close()
-        del stream
+        stream.seek(0)
+        stream.truncate()
+        if self.end:
+          break
     except Exception, e:
       print "CAM: EXCEPTION: "+str(e)+"|| "+str(traceback.format_exc())
 
+    stream.close()
+    camera.stop_preview()
+    camera.close()
