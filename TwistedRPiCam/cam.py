@@ -8,7 +8,7 @@ from twisted.internet import reactor, defer
 
 class Cam(object):
   def __init__(self):
-    self.photo = "EMPTY"
+    self.photo = ""
     self.end = False
 
   @defer.inlineCallbacks
@@ -29,12 +29,15 @@ class Cam(object):
       self.camera = camera = yield deferToThread(picamera.PiCamera)
       #camera.resolution = (2592, 1944)
       camera.resolution = (1920, 1080)
+      #camera.resolution = (640, 480)
       print "CAM: capturing..."
       while not self.end:
         stream = io.BytesIO()
-        yield deferToThread(camera.capture, stream, "jpeg", resize=(640,480))
+        #yield deferToThread(camera.capture, stream, "jpeg", resize=(640,480))
+        yield deferToThread(camera.capture, stream, "jpeg")
         self.photo = stream.getvalue()
         stream.close()
+        del stream
     except Exception, e:
       print "CAM: EXCEPTION: "+str(e)+"|| "+str(traceback.format_exc())
 
