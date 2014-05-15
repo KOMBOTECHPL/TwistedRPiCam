@@ -5,7 +5,13 @@ Install
 -------
 
 ```
-sudo apt-get install python-twisted python-picamera python-rpi.gpio
+sudo apt-get install python-twisted python-picamera python-rpi.gpio ssl-cert
+adduser pi ssl-cert
+```
+
+Relogin to get access to ssl-cert group owned SSL key.
+
+```
 git clone https://github.com/esyscoder/TwistedRPiCam.git
 ```
 
@@ -15,6 +21,7 @@ Run
 ```
 cd TwistedRPiCam
 mkdir -p log
+echo "admin:admin" > passwd 
 ./run_bg.sh
 ```
 
@@ -24,17 +31,18 @@ Use
 Auto refreshing image:
 ```
 http://<RPI.IP>:8080/
+https://<RPI.IP>:8443/
 ```
 
 One shot image:
 ```
 http://<RPI.IP>:8080/cam.jpeg
+https://<RPI.IP>:8443/cam.jpeg
 ```
 
 TODO
 ----
 
-- Digest authentication
 - Configuration file
 - Debian PPA package
 
@@ -56,3 +64,4 @@ LICENSE
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
