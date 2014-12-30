@@ -1,6 +1,6 @@
 # vim: set fileencoding=utf-8 ts=2 sw=2 et st=2 :
-from twisted.internet import epollreactor
-epollreactor.install()
+#from twisted.internet import epollreactor
+#epollreactor.install()
 
 from twisted.internet import reactor
 from twisted.application import internet, service
