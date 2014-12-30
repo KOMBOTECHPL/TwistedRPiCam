@@ -11,6 +11,8 @@ class CamPhoto(resource.Resource):
     return ret
 
   def render_POST(self, request):
+    request.setHeader("Connection","close")
+    #request.setHeader("Connection","Keep-Alive")
     request.setHeader("Content-type","image/jpeg")
     request.setResponseCode(200)
     #print "TwistedRPiCam CamPhoto"

@@ -33,8 +33,8 @@ class Cam(object):
       #camera.resolution = (2592, 1944)
       #camera.resolution = (1920, 1080)
       #camera.resolution = (1600, 1200)
-      camera.resolution = (800, 600)
-      #camera.resolution = (640, 480)
+      #camera.resolution = (800, 608)
+      camera.resolution = (640, 480)
       print "CAM: capturing..."
       camera.start_preview()
       stream = io.BytesIO()
