@@ -5,5 +5,5 @@ $(function(){
     sec = new Date().getTime();
     $("#cam").attr("src", url+sec);
   };
-  setInterval(cam, 500);
+  setInterval(cam, 1000);
 })
